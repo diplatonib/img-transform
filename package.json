@@ -1,0 +1,22 @@
+{
+  "name": "img-transform",
+  "version": "1.0.0",
+  "description": "Adding <picture> tags, compress and resize images",
+  "main": "image.js",
+  "scripts": {
+    "test": "test",
+    "start": "node app.js"
+  },
+  "author": "diplatonib",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^9.1.0",
+    "glob": "^7.1.6",
+    "html-dom-parser": "^1.0.0",
+    "jsdom": "^16.4.0",
+    "node-html-parser": "^3.0.3",
+    "prepend-file": "^2.0.0",
+    "replace": "^1.2.0",
+    "tinify": "^1.6.0-beta.2"
+  }
+}
