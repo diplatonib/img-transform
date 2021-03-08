@@ -16,7 +16,7 @@ let fileNames = [];
 
 function readPaths(pagesList) {
   require('fs')
-  .readFileSync(pagesList, config.encode)
+  .readFileSync(pagesList, 'utf-8')
   .split('\n')
   .forEach(getCurrentFilename)
   return fileNames;
@@ -33,18 +33,18 @@ console.log(readPaths(config.URL));
 
 
 
-// function filter (err, allFilesInFolders) {
-//   if(err){ throw err; }
-//   allFilesInFolders.forEach( function (file) {
-//     file.match(
-//       readPaths(config.URL).forEach( function (subString) {
-//       return subString;
-//       })
-//     )   
-//   })
-//   // readFiles();
-// }
-// module.exports.filter = filter;
+function filter (err, allFilesInFolders) {
+  if(err){ throw err; }
+  allFilesInFolders.forEach( function (file) {
+    file.match(
+      readPaths(config.URL).forEach( function (subString) {
+      return subString;
+      })
+    )   
+  })
+  // .call(readFunc);
+}
+module.exports.filter = filter;
 
 
 
