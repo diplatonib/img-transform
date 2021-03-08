@@ -68,15 +68,15 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 const settings = {
-	fileType: /\.twig/,
-	folderName: './test/',
-	encode: 'utf-8',
-	contentType: 'text/html',
+  fileType: /\.twig/,
+  folderName: './test/',
+  encode: 'utf-8',
+  contentType: 'text/html',
+  URL: 'url-list.txt',
 }
-const readPaths = require('./scripts/getting-filepaths.js')
+
+// const readPaths = require('./scripts/getting-filepaths.js')
 // const util = require('util')
-
-
 
 function filewalker(dir, done) {
 
@@ -107,25 +107,6 @@ function filewalker(dir, done) {
 		});
 	});
 };
-
-// function readAll (files) {
-
-// 	let arr = [];
-
-// 	files.forEach((item) => {
-// 		fs.readFile(files, 'utf-8'); 
-// 		arr.push(files);
-// 	})
-// 	for (var i = 0; i < 9; i++) {
-//    		console.log(i);
-//    		fs.readFile(files, 'utf-8'); 
-// 		arr.push(files);
-// 	}
-// 	console.log('Result:', arr);
-// };
-
-// Usage fs module
-// fs.readFile(path, encode, func);
 
 function createDOM(err, fileContent){
 	if(err){ throw err; }
@@ -254,17 +235,6 @@ function createDOM(err, fileContent){
 	console.log('-------------------------end-------------------------')
 }
 
-function filter (err, allFilesInFolders) {
-	if(err){ throw err; }
-	allFilesInFolders.forEach( function (file) {
-		file.match(
-			readPaths(settings.URL).forEach( function (subString) {
-			return subString;
-			})
-		)		
-	})
-	readFiles();
-}
 
 function readFiles(err, fileContent){
 	if(err){ throw err; }
@@ -285,9 +255,9 @@ function writeFiles(err, fileContent){
 }
 
 
-// filewalker( settings.folderName, readFiles);
-
 filewalker( settings.folderName, readFiles);
+
+// filewalker( settings.folderName, filter);
 
 
 

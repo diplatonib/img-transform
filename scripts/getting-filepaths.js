@@ -1,6 +1,7 @@
 module.exports.readPaths = readPaths;
 
-const settings = {
+
+const config = {
   fileType: /\.html/,
   folderName: './test/',
   encode: 'utf-8',
@@ -8,11 +9,14 @@ const settings = {
   URL: 'url-list.txt',
 }
 
+
+
+
 let fileNames = [];
 
-function readPaths (pagesList) {
+function readPaths (err, pagesList) {
   require('fs')
-  .readFileSync(pagesList, "utf-8")
+  .readFile(pagesList, config.encode)
   .split('\n')
   .forEach(getCurrentFilename)
   return fileNames;
@@ -24,7 +28,27 @@ function getCurrentFilename(line) {
     .replace(/\.html|$/,'.twig')); 
 }
 
-// console.log( settings.URL );
+readPaths(config.URL);
+console.log(fileNames);
+
+
+
+// function filter (err, allFilesInFolders) {
+//   if(err){ throw err; }
+//   allFilesInFolders.forEach( function (file) {
+//     file.match(
+//       readPaths(config.URL).forEach( function (subString) {
+//       return subString;
+//       })
+//     )   
+//   })
+//   // readFiles();
+// }
+// module.exports.filter = filter;
+
+
+
+// console.log( config.URL );
 
 // let filePaths = [];
 
@@ -32,7 +56,7 @@ function getCurrentFilename(line) {
 //   let childProcess = require('child_process');
 
 //   fileNames.forEach( function(file){
-//     childProcess.execFile('find', [ settings.folderName, '-type', 'f', '-name', file], function(err, stdout, stderr){
+//     childProcess.execFile('find', [ config.folderName, '-type', 'f', '-name', file], function(err, stdout, stderr){
 //       if (err) { throw err } 
 //       filePaths.push(stdout);
 //     })
