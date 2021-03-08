@@ -75,7 +75,9 @@ const settings = {
   URL: 'url-list.txt',
 }
 
-// const readPaths = require('./scripts/getting-filepaths.js')
+const oversized = require('./scripts/toFileNames.js')
+
+// const utils = require('./scripts/getting-filepaths.js')
 // const util = require('util')
 
 function filewalker(dir, done) {
@@ -255,10 +257,21 @@ function writeFiles(err, fileContent){
 }
 
 
-filewalker( settings.folderName, readFiles);
+// filewalker( settings.folderName, readFiles);
+function pushToArray(err, files) {
+	
+	if(err){ throw err; } 
 
-// filewalker( settings.folderName, filter);
+	let allFiles = [];
+
+	files.forEach( function(el, i){
+		allFiles.push(el);
+	}) 
+	return allFiles;
+} 
+
+let arr1 = allF;
 
 
-
-
+console.log(filewalker( settings.folderName, arr1))
+console.log(arr1)
