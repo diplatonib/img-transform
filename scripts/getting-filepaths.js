@@ -6,7 +6,7 @@ const config = {
   folderName: './test/',
   encode: 'utf-8',
   contentType: 'text/html',
-  URL: 'url-list.txt',
+  URL: 'url-list.txt'
 }
 
 
@@ -14,9 +14,9 @@ const config = {
 
 let fileNames = [];
 
-function readPaths (err, pagesList) {
+function readPaths(pagesList) {
   require('fs')
-  .readFile(pagesList, config.encode)
+  .readFileSync(pagesList, config.encode)
   .split('\n')
   .forEach(getCurrentFilename)
   return fileNames;
@@ -28,8 +28,8 @@ function getCurrentFilename(line) {
     .replace(/\.html|$/,'.twig')); 
 }
 
-readPaths(config.URL);
-console.log(fileNames);
+
+console.log(readPaths(config.URL));
 
 
 
