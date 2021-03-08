@@ -68,12 +68,13 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 const settings = {
-	fileType: /\.html/,
+	fileType: /\.twig/,
 	folderName: './test/',
 	encode: 'utf-8',
 	contentType: 'text/html',
 }
-const util = require('util')
+const readPaths = require('./scripts/getting-filepaths.js')
+// const util = require('util')
 
 
 
@@ -127,9 +128,7 @@ function filewalker(dir, done) {
 // fs.readFile(path, encode, func);
 
 function createDOM(err, fileContent){
-	if(err){
-		throw err;
-	}
+	if(err){ throw err; }
 	console.log('------------------------start------------------------')
 	console.log('Current item:\n', fileContent);
 	
@@ -255,10 +254,20 @@ function createDOM(err, fileContent){
 	console.log('-------------------------end-------------------------')
 }
 
+function filter (err, allFilesInFolders) {
+	if(err){ throw err; }
+	allFilesInFolders.forEach( function (file) {
+		file.match(
+			readPaths(settings.URL).forEach( function (subString) {
+			return subString;
+			})
+		)		
+	})
+	readFiles();
+}
+
 function readFiles(err, fileContent){
-	if(err){
-		throw err;
-	}
+	if(err){ throw err; }
 	console.log('All files array:\n', fileContent);
 	fileContent.forEach( function(element, index) {
 		fs.readFile(element, settings.encode, createDOM);
@@ -268,9 +277,7 @@ function readFiles(err, fileContent){
 }
 
 function writeFiles(err, fileContent){
-	if(err){
-		throw err;
-	}
+	if(err){ throw err;	}
 	console.log('Markup result:\n', fileContent);
 	fileContent.forEach( function(element, index) {
 		fs.writeFile('./test/out.html', readFiles)
@@ -278,8 +285,9 @@ function writeFiles(err, fileContent){
 }
 
 
-filewalker( settings.folderName, readFiles);
+// filewalker( settings.folderName, readFiles);
 
+filewalker( settings.folderName, readFiles);
 
 
 
