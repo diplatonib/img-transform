@@ -1,0 +1,5 @@
+#!/bin/bash
+files='./files.txt'
+while read line; do
+find  -type f -name $line | xargs realpath -eq $line
+done < $files
