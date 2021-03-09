@@ -68,7 +68,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 const settings = {
-  fileType: /\.twig/,
+  fileType: /\.html/,
   folderName: './test/',
   encode: 'utf-8',
   contentType: 'text/html',
@@ -257,21 +257,21 @@ function writeFiles(err, fileContent){
 }
 
 
-// filewalker( settings.folderName, readFiles);
-function pushToArray(err, files) {
+filewalker( settings.folderName, readFiles);
+// function pushToArray(err, files) {
 	
-	if(err){ throw err; } 
+// 	if(err){ throw err; } 
 
-	let allFiles = [];
+// 	let allFiles = [];
 
-	files.forEach( function(el, i){
-		allFiles.push(el);
-	}) 
-	return allFiles;
-} 
+// 	files.forEach( function(el, i){
+// 		allFiles.push(el);
+// 	}) 
+// 	return allFiles;
+// } 
 
-let arr1 = allF;
+// let arr1 = allF;
 
 
-console.log(filewalker( settings.folderName, arr1))
-console.log(arr1)
+// console.log(filewalker( settings.folderName, arr1))
+// console.log(arr1)
