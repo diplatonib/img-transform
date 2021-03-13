@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			margin: auto;
+			max-width: 960px;
+			padding: 15px;
+		}
+		img {
+			max-width: 100%;
+		}
+		picture {
+			max-width: 100%;
+		}
+	</style>
+</head>
+<body >
+	
+	<picture>
+		<!-- avif images -->
+		<!-- @tablet -->
+		<source media="(max-width: 480px)" srcset="/speedtest/tablet-480px.png">
+		<!-- @desktop -->
+		<source srcset="" type="image/avif">
+		<!-- avif images -->
+		<!-- @tablet -->
+		<source media="(max-width: 480px)" srcset="/speedtest/tablet-480px.png">
+		<!-- @desktop -->
+		<source srcset="" type="image/webp">
+		<!-- png images -->
+		<!-- @tablet -->
+		<source media="(max-width: 480px)" srcset="/speedtest/tablet-480px.png">
+		<!-- @desktop -->
+		<img  src="/speedtest/desktop-930px.png" alt="It’s responsive!" />
+	</picture>
+	
+</body>
+</html>

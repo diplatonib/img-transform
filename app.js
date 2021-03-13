@@ -14,101 +14,58 @@
 * @param {Function} done
 */
 
-// function filewalker(dir, done) {
-
-// 	let results = [];
-
-// 	fs.readdir(dir, function(err, list) {
-// 		if (err) return done(err);
-
-// 		var pending = list.length;
-
-// 		if (!pending) return done(null, results);
-// 		list.forEach(function(file){
-// 			file = path.resolve(dir, file);
-// 			fs.stat(file, function(err, stat){
-// 		// If directory, execute a recursive call
-// 		if (stat && stat.isDirectory()) {
-// 			// Add directory to array [comment if you need to remove the directories from the array]
-// 			// results.push(file);
-// 			filewalker(file, function(err, res){
-// 				results = results.concat(res);
-// 				if (!--pending) done(null, results);
-// 			});
-// 		} else {
-// 			results.push(file);
-// 			if (!--pending) done(null, results);
-// 		}
-// 	});
-// 		});
-// 	});
-// };
-
-// filewalker("./test", function(err, data){
-// 	if(err){
-// 		throw err;
-// 	}
-// // ["c://some-existent-path/file.txt","c:/some-existent-path/subfolder"]
-// 	console.log('All files array:\n', data);
-
-// 	let filteredResults = [];
-// 	data.filter(function (item) {
-// 		if ( new RegExp (/\.twig/).test(item)) {
-// 			console.log('Current file:    ', item);
-// 			filteredResults.push(item);
-// 		}
-// 	});
-
-// 	console.log('Filtered array:\n', filteredResults);
-// });
 const fs = require('fs');
 const path = require('path');
 const jsdom = require("jsdom");
 //Creating new JSDOM object
 const { JSDOM } = jsdom;
+const chalk = require('chalk');
 
 const settings = {
   fileType: /\.html/,
-  folderName: './test/',
+  folderName: './test/speedtest/',
   encode: 'utf-8',
   contentType: 'text/html',
   URL: 'url-list.txt',
 }
 
-const oversized = require('./scripts/toFileNames.js')
+//const oversized = require('./scripts/toFileNames.js')
 
 // const utils = require('./scripts/getting-filepaths.js')
-// const util = require('util')
+
+
 
 function filewalker(dir, done) {
 
-	let results = [];
+let filewalkerResults = [];
 
 	fs.readdir(dir, function(err, list) {
 		if (err) return done(err);
 
 		var pending = list.length;
 
-		if (!pending) return done(null, results);
+		if (!pending) return done(null, filewalkerResults);
 		list.forEach(function(file){
 			file = path.resolve(dir, file);
 			fs.stat(file, function(err, stat){
 		// If directory, execute a recursive call
 		if (stat && stat.isDirectory()) {
 			filewalker(file, function(err, res){
-				results = results.concat(res);
-				if (!--pending) done(null, results);
+				filewalkerResults = filewalkerResults.concat(res);
+				if (!--pending) done(null, filewalkerResults);
 			});
 		} else {
 			if ( settings.fileType.test(file)) {
-				results.push(file);
+				filewalkerResults.push(file);
 			}
-			if (!--pending) done(null, results);
+			if (!--pending) done(null, filewalkerResults);
 		}
 	});
 		});
 	});
 };
+
+let imagesPaths =[];
 
 function createDOM(err, fileContent){
 	if(err){ throw err; }
@@ -118,108 +75,128 @@ function createDOM(err, fileContent){
 	let dom = new JSDOM(fileContent);
 	// let sources = [];
 	let images = dom.window.document.querySelectorAll('img');
-	let arr = Array.from(images);
-	// arr.forEach( function(element, index) {
-	// 	element.getAttribute('src');
-	// 	console.log(index,' Current img: ', element.src )
-	// });
-	arr.forEach( 
-		function(item, iter){
-			if (item.hasAttribute('src') && item.parentNode.nodeName != 'PICTURE') {
-				const s = item.getAttribute('src');
-				if (s.match(/(.*\.png)|(.*\.jpg)/)) {
-					console.log('####### IMAGE #' + (iter + 1) + ' INFO #######')
-					console.log('Image #' + (iter + 1) + ' \'src\' attribute will be proceed.');
-					console.log('Element:\n' + '\n' + item.outerHTML);
-					console.log('DocumentIndex [' + iter + ']');
-					let picture = dom.window.document.createElement('PICTURE');
-					let avifSource = dom.window.document.createElement('SOURCE');
-					avifSource.type="image/avif";
-					let webpSource = dom.window.document.createElement('SOURCE');
-					webpSource.type="image/webp";
-                //Буфер для новых элементов
-                let df = dom.window.document.createDocumentFragment();
-                //Берем путь                     
-                //Заменяем расширение
-                //Вписываем новые пути в сурсы
-                let avifSrcSet = s.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.avif' );
-                avifSource.srcset = avifSrcSet;
-                let webpSrcSet = s.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.webp' );
-                webpSource.srcset = webpSrcSet;
-                //Находим индекс в массиве соседей и предка для текущего элемента
-                const parent = item.parentNode;
-                console.log('ParentNode:\n', parent);
-                const index = Array.from(item.parentNode.children).indexOf(item);
-                console.log('ChildNodeIndex [' + index + ']');
-                //Встраиваем готовые источники
-                picture.appendChild(avifSource);
-                picture.appendChild(webpSource);
-                picture.appendChild(item);
-                df.appendChild(picture);
-                parent.insertBefore(df, parent.children[index]);
-                console.log('Code result:\n' + '\n' + picture.outerHTML);
-            } else {
-            	console.log('Can\'t find \'src\' attribute or unsupported file type');
+
+    
+
+	images.forEach ( function getImagePath (item, index){
+        if (item.hasAttribute('src') && item.parentNode.nodeName != 'PICTURE'){
+            let s = item.getAttribute('src');
+            if (s.match(/(.*\.png)|(.*\.jpg)/)) {
+                let resolvedS = path.resolve(s.replace(/\//, ''));
+                console.log(chalk.yellow(s));
+                imagesPaths.push(resolvedS);
             }
         } else if (item.hasAttribute('data-src') && item.parentNode.nodeName != 'PICTURE') {
-        	const ds = item.getAttribute('data-src');
-        	if (ds.match(/(.*\.png)|(.*\.jpg)/)) {
-        		console.log('####### IMAGE #' + (iter + 1) + ' INFO #######')
-        		console.log('Image #' + (iter + 1) + ' \'data-src\' attribute will be proceed.');
-        		let picture = dom.window.document.createElement('PICTURE');
-        		let avifSource = dom.window.document.createElement('SOURCE');
-        		avifSource.type="image/avif";
-        		let webpSource = dom.window.document.createElement('SOURCE');
-        		webpSource.type="image/webp";
-                //Буфер для новых элементов
-                let df = dom.window.document.createDocumentFragment();
-                //Берем путь                     
-                //Заменяем расширение
-                //Вписываем новые пути в сурсы
-                let avifSrcSet = ds.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.avif' );
-                avifSource.srcset = avifSrcSet;
-                let webpSrcSet = ds.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.webp' );
-                webpSource.srcset = webpSrcSet;
-                //Меняем data-src на src
-                item.src = ds;
-                item.removeAttribute('data-src');
-                console.log('Element (data-src attribute replaced):\n' + '\n' + item.outerHTML);
-                console.log('DocumentIndex [' + iter + ']');    
-                //Находим индекс в массиве соседей и предка для текущего элемента
-                const parent = item.parentNode;
-                console.log('ParentNode:\n', parent);
-                const index = Array.from(item.parentNode.children).indexOf(item);
-                console.log('ChildNodeIndex [' + index + ']');
-                //Встраиваем готовые источники
-                picture.appendChild(avifSource);
-                picture.appendChild(webpSource);
-                picture.appendChild(item);
-                df.appendChild(picture);
-                parent.insertBefore(df, parent.children[index]);
-                console.log('Code result:\n' + '\n' + picture.outerHTML); 
-            } else {
-            	console.log('Can\'t find \'data-src\' attribute or unsupported file type');
+            let d = item.getAttribute('data-src')
+            if (d.match(/(.*\.png)|(.*\.jpg)/)) {
+                let resolvedD = path.resolve(d.replace(/\//, ''));
+                console.log(chalk.yellow(d));
+                imagesPaths.push(resolvedD);
             }
-        } else if (item.parentNode.nodeName = 'PICTURE'){
-        	console.log('####### IMAGE #' + (iter + 1) + ' INFO #######')
-        	console.log('Already done. Image #' + (iter + 1) + ' has been changed before.');
-        	console.log('Image #' + (iter + 1) + '\'src\' attribute will NOT be proceed.');
-        	console.log('DocumentArrayIndex [' + iter + ']');
-        	console.log('Element:');
-        	console.log(item.outerHTML);
-        	console.log('ParentNode:');
-        	console.log(item.parentNode);
-             //Находим индекс в массиве соседей и предка для текущего элемента
-             const index = Array.from(item.parentNode.children).indexOf(item);
-             console.log('ChildNodeIndex [',index,']');
-             let log = item.parentNode.outerHTML;
-             console.log('Source code:');
-             console.log(log);
-         } else {
-         	console.log('Something wrong');
-         }
-     }
-     );
+        } else {
+
+            console.log('Can\'t find path');
+        }
+    })
+    console.log(chalk.yellow(imagesPaths));
+
+	// images.forEach( 
+	// 	function transformDOM (item, iter){
+	// 		if (item.hasAttribute('src') && item.parentNode.nodeName != 'PICTURE') {
+	// 			const s = item.getAttribute('src');
+	// 			if (s.match(/(.*\.png)|(.*\.jpg)/)) {
+	// 				console.log('####### IMAGE #' + (iter + 1) + ' INFO #######')
+	// 				console.log('Image #' + (iter + 1) + ' \'src\' attribute will be proceed.');
+	// 				console.log('Element:\n' + '\n' + item.outerHTML);
+	// 				console.log('DocumentIndex [' + iter + ']');
+	// 				let picture = dom.window.document.createElement('PICTURE');
+	// 				let avifSource = dom.window.document.createElement('SOURCE');
+	// 				avifSource.type="image/avif";
+	// 				let webpSource = dom.window.document.createElement('SOURCE');
+	// 				webpSource.type="image/webp";
+ //                //Буфер для новых элементов
+ //                let df = dom.window.document.createDocumentFragment();
+ //                //Берем путь                     
+ //                //Заменяем расширение
+ //                //Вписываем новые пути в сурсы
+ //                let avifSrcSet = s.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.avif' );
+ //                avifSource.srcset = avifSrcSet;
+ //                let webpSrcSet = s.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.webp' );
+ //                webpSource.srcset = webpSrcSet;
+ //                //Находим индекс в массиве соседей и предка для текущего элемента
+ //                const parent = item.parentNode;
+ //                console.log('ParentNode:\n', parent);
+ //                const index = Array.from(item.parentNode.children).indexOf(item);
+ //                console.log('ChildNodeIndex [' + index + ']');
+ //                //Встраиваем готовые источники
+ //                picture.appendChild(avifSource);
+ //                picture.appendChild(webpSource);
+ //                picture.appendChild(item);
+ //                df.appendChild(picture);
+ //                parent.insertBefore(df, parent.children[index]);
+ //                console.log('Code result:\n' + '\n' + picture.outerHTML);
+ //            } else {
+ //            	console.log('Can\'t find \'src\' attribute or unsupported file type');
+ //            }
+ //        } else if (item.hasAttribute('data-src') && item.parentNode.nodeName != 'PICTURE') {
+ //        	const ds = item.getAttribute('data-src');
+ //        	if (ds.match(/(.*\.png)|(.*\.jpg)/)) {
+ //        		console.log('####### IMAGE #' + (iter + 1) + ' INFO #######')
+ //        		console.log('Image #' + (iter + 1) + ' \'data-src\' attribute will be proceed.');
+ //        		let picture = dom.window.document.createElement('PICTURE');
+ //        		let avifSource = dom.window.document.createElement('SOURCE');
+ //        		avifSource.type="image/avif";
+ //        		let webpSource = dom.window.document.createElement('SOURCE');
+ //        		webpSource.type="image/webp";
+ //                //Буфер для новых элементов
+ //                let df = dom.window.document.createDocumentFragment();
+ //                //Берем путь                     
+ //                //Заменяем расширение
+ //                //Вписываем новые пути в сурсы
+ //                let avifSrcSet = ds.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.avif' );
+ //                avifSource.srcset = avifSrcSet;
+ //                let webpSrcSet = ds.replace( /(\.png)|(\.jpg)|(\.jpeg)/, '.webp' );
+ //                webpSource.srcset = webpSrcSet;
+ //                //Меняем data-src на src
+ //                item.src = ds;
+ //                item.removeAttribute('data-src');
+ //                console.log('Element (data-src attribute replaced):\n' + '\n' + item.outerHTML);
+ //                console.log('DocumentIndex [' + iter + ']');    
+ //                //Находим индекс в массиве соседей и предка для текущего элемента
+ //                const parent = item.parentNode;
+ //                console.log('ParentNode:\n', parent);
+ //                const index = Array.from(item.parentNode.children).indexOf(item);
+ //                console.log('ChildNodeIndex [' + index + ']');
+ //                //Встраиваем готовые источники
+ //                picture.appendChild(avifSource);
+ //                picture.appendChild(webpSource);
+ //                picture.appendChild(item);
+ //                df.appendChild(picture);
+ //                parent.insertBefore(df, parent.children[index]);
+ //                console.log('Code result:\n' + '\n' + picture.outerHTML); 
+ //            } else {
+ //            	console.log('Can\'t find \'data-src\' attribute or unsupported file type');
+ //            }
+ //        } else if (item.parentNode.nodeName = 'PICTURE'){
+ //        	console.log('####### IMAGE #' + (iter + 1) + ' INFO #######')
+ //        	console.log('Already done. Image #' + (iter + 1) + ' has been changed before.');
+ //        	console.log('Image #' + (iter + 1) + '\'src\' attribute will NOT be proceed.');
+ //        	console.log('DocumentArrayIndex [' + iter + ']');
+ //        	console.log('Element:');
+ //        	console.log(item.outerHTML);
+ //        	console.log('ParentNode:');
+ //        	console.log(item.parentNode);
+ //             //Находим индекс в массиве соседей и предка для текущего элемента
+ //             const index = Array.from(item.parentNode.children).indexOf(item);
+ //             console.log('ChildNodeIndex [',index,']');
+ //             let log = item.parentNode.outerHTML;
+ //             console.log('Source code:');
+ //             console.log(log);
+ //         } else {
+ //         	console.log('Something wrong');
+ //         }
+ //     }
+ //     );
 
 	// sources.push(images)
 	console.log('Current src: ', images.length);
@@ -258,6 +235,10 @@ function writeFiles(err, fileContent){
 
 
 filewalker( settings.folderName, readFiles);
+
+
+
+
 // function pushToArray(err, files) {
 	
 // 	if(err){ throw err; } 

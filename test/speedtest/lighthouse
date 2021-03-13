@@ -1,0 +1,5 @@
+#!/bin/bash
+files='URL.txt'
+while read line; do
+$line
+done < $files
