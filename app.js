@@ -27,45 +27,59 @@ const settings = {
   encode: 'utf-8',
   contentType: 'text/html',
   URL: 'url-list.txt',
+  FWOutput: 'filewalker.txt',
 }
 
 //const oversized = require('./scripts/toFileNames.js')
 
 // const utils = require('./scripts/getting-filepaths.js')
 
+function writeFilewalkerResultFile(err, array){
+  if(err){ throw err; }   
+  
+  fs.writeFileSync(settings.FWOutput, array);
+  console.log(chalk.green(`Wrote sucsessfully in ${settings.FWOutput}`));
+  let res = function(err) {
+    if(err) throw error; // если возникла ошибка
+    console.log("Read & check. File contents:");
+    let data = fs.readFileSync(settings.FWOutput, "utf8");
+    console.log(data);  // выводим считанные данные
+  }
+  res();
+  // array.forEach( function(e){ fs.appendFile(settings.FWOutput, e); });
+}                       
+
+function filewalker(dir, done, write) {
+    let filewalkerResults = [];
+    fs.readdir(dir, function(err, list) {
+        if (err) return done(err);
+        var pending = list.length;
+        if (!pending) return done(null, filewalkerResults);
+        list.forEach(function(file){
+            file = path.resolve(dir, file);
+            fs.stat(file, function(err, stat){
+                // If directory, execute a recursive call
+                if (stat && stat.isDirectory()) {
+                    filewalker(file, function(err, res){
+                        filewalkerResults = filewalkerResults.concat(res);
+                        if (!--pending) done(null, filewalkerResults);
+                    });
+                } else {
+                    if ( settings.fileType.test(file)) {
+                        filewalkerResults.push(file);
+                    }
+                    if (!--pending) {
+                        
+                        done(null, filewalkerResults);
+                    }
+                }
+
+            });
+        });
+    });
+}
 
 
-function filewalker(dir, done) {
-
-let filewalkerResults = [];
-
-	fs.readdir(dir, function(err, list) {
-		if (err) return done(err);
-
-		var pending = list.length;
-
-		if (!pending) return done(null, filewalkerResults);
-		list.forEach(function(file){
-			file = path.resolve(dir, file);
-			fs.stat(file, function(err, stat){
-		// If directory, execute a recursive call
-		if (stat && stat.isDirectory()) {
-			filewalker(file, function(err, res){
-				filewalkerResults = filewalkerResults.concat(res);
-				if (!--pending) done(null, filewalkerResults);
-			});
-		} else {
-			if ( settings.fileType.test(file)) {
-				filewalkerResults.push(file);
-			}
-			if (!--pending) done(null, filewalkerResults);
-		}
-	});
-		});
-	});
-};
-
-let imagesPaths =[];
 
 function createDOM(err, fileContent){
 	if(err){ throw err; }
@@ -77,28 +91,38 @@ function createDOM(err, fileContent){
 	let images = dom.window.document.querySelectorAll('img');
 
     
+    
+	let imagesPaths = srcArray => {
 
-	images.forEach ( function getImagePath (item, index){
-        if (item.hasAttribute('src') && item.parentNode.nodeName != 'PICTURE'){
-            let s = item.getAttribute('src');
-            if (s.match(/(.*\.png)|(.*\.jpg)/)) {
-                let resolvedS = path.resolve(s.replace(/\//, ''));
-                console.log(chalk.yellow(s));
-                imagesPaths.push(resolvedS);
-            }
-        } else if (item.hasAttribute('data-src') && item.parentNode.nodeName != 'PICTURE') {
-            let d = item.getAttribute('data-src')
-            if (d.match(/(.*\.png)|(.*\.jpg)/)) {
-                let resolvedD = path.resolve(d.replace(/\//, ''));
-                console.log(chalk.yellow(d));
-                imagesPaths.push(resolvedD);
-            }
-        } else {
+        let imagesPaths = [];
 
-            console.log('Can\'t find path');
-        }
-    })
-    console.log(chalk.yellow(imagesPaths));
+        srcArray.forEach ( function getImagePath (item){
+            
+            let resolve = src => {
+
+            } 
+
+            if (item.hasAttribute('src') && item.parentNode.nodeName != 'PICTURE'){
+                let s = item.getAttribute('src');
+                if (s.match(/(.*\.png$)|(.*\.jpg$)/)) {
+                    let resolvedS = path.resolve(s.replace(/^\//, ''));
+                    console.log(chalk.yellow(s));
+                    imagesPaths.push(resolvedS);
+                }
+            } else if (item.hasAttribute('data-src') && item.parentNode.nodeName != 'PICTURE') {
+                let d = item.getAttribute('data-src')
+                if (d.match(/(.*\.png$)|(.*\.jpg$)/)) {
+                    let resolvedD = path.resolve(d.replace(/^\//, ''));
+                    console.log(chalk.yellow(d));
+                    imagesPaths.push(resolvedD);
+                }
+            }
+           
+            return imagesPaths;
+            console.log(chalk.yellow('here', imagesPaths)); 
+            
+        })
+    };
 
 	// images.forEach( 
 	// 	function transformDOM (item, iter){
@@ -213,7 +237,7 @@ function createDOM(err, fileContent){
 	return dom.window.document.body.innerHTML
 	console.log('-------------------------end-------------------------')
 }
-
+  
 
 function readFiles(err, fileContent){
 	if(err){ throw err; }
@@ -234,7 +258,7 @@ function writeFiles(err, fileContent){
 }
 
 
-filewalker( settings.folderName, readFiles);
+filewalker( settings.folderName, writeFilewalkerResultFile);
 
 
 
