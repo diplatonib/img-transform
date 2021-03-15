@@ -20,6 +20,8 @@ const jsdom = require("jsdom");
 //Creating new JSDOM object
 const { JSDOM } = jsdom;
 const chalk = require('chalk');
+const prependFile = require('prepend-file');
+
 
 const settings = {
   fileType: /\.html/,
@@ -35,18 +37,25 @@ const settings = {
 // const utils = require('./scripts/getting-filepaths.js')
 
 function writeFilewalkerResultFile(err, array){
-  if(err){ throw err; }   
-  
+  if(err){ throw err; }
+  array = array.join('\n');
+  console.log(array)  
+  if (Array.isArray(array)) {
+    console.log('yes'); 
+  } else {
+    console.log('no');
+  }
   fs.writeFileSync(settings.FWOutput, array);
-  console.log(chalk.green(`Wrote sucsessfully in ${settings.FWOutput}`));
+  console.log(chalk.green(`Wrote sucsessfully in ${path.resolve(settings.FWOutput)}`));
   let res = function(err) {
     if(err) throw error; // если возникла ошибка
     console.log("Read & check. File contents:");
-    let data = fs.readFileSync(settings.FWOutput, "utf8");
+    let data = fs.readFileSync(settings.FWOutput, "utf8")
     console.log(data);  // выводим считанные данные
   }
-  res();
-  // array.forEach( function(e){ fs.appendFile(settings.FWOutput, e); });
+  prependFile(settings.FWOutput, 'Files to be proceed:\n');
+  return res();
+
 }                       
 
 function filewalker(dir, done, write) {
@@ -73,7 +82,6 @@ function filewalker(dir, done, write) {
                         done(null, filewalkerResults);
                     }
                 }
-
             });
         });
     });
@@ -93,28 +101,28 @@ function createDOM(err, fileContent){
     
     
 	let imagesPaths = srcArray => {
-
+       
         let imagesPaths = [];
 
-        srcArray.forEach ( function getImagePath (item){
+        srcArray.forEach ( function getImagePath (imgItemOfImages){
             
-            let resolve = src => {
-
+            let resolve = anySrc => {
+                let resolved = path.resolve(anySrc.replace(/^\//, ''));
+                console.log(chalk.yellow(anySrc));
+                imagesPaths.push(resolved);
             } 
 
-            if (item.hasAttribute('src') && item.parentNode.nodeName != 'PICTURE'){
-                let s = item.getAttribute('src');
+            if (imgItemOfImages.hasAttribute('src') && imgItemOfImages.parentNode.nodeName != 'PICTURE'){
+                let s = imgItemOfImages.getAttribute('src');
                 if (s.match(/(.*\.png$)|(.*\.jpg$)/)) {
-                    let resolvedS = path.resolve(s.replace(/^\//, ''));
-                    console.log(chalk.yellow(s));
-                    imagesPaths.push(resolvedS);
+                    let resolved = resolve(s);
+                    imagesPaths.push(resolved);
                 }
-            } else if (item.hasAttribute('data-src') && item.parentNode.nodeName != 'PICTURE') {
-                let d = item.getAttribute('data-src')
+            } else if ( imgItemOfImages.hasAttribute('data-src') && imgItemOfImages.parentNode.nodeName != 'PICTURE') {
+                let d = imgItemOfImages.getAttribute('data-src')
                 if (d.match(/(.*\.png$)|(.*\.jpg$)/)) {
-                    let resolvedD = path.resolve(d.replace(/^\//, ''));
-                    console.log(chalk.yellow(d));
-                    imagesPaths.push(resolvedD);
+                    let resolved = resolve(d);
+                    imagesPaths.push(resolved);
                 }
             }
            
@@ -123,7 +131,8 @@ function createDOM(err, fileContent){
             
         })
     };
-
+    let compressorInput = imagesPaths(images);
+    console.log(`Input to compresss ${compressorInput}`);
 	// images.forEach( 
 	// 	function transformDOM (item, iter){
 	// 		if (item.hasAttribute('src') && item.parentNode.nodeName != 'PICTURE') {
@@ -259,6 +268,7 @@ function writeFiles(err, fileContent){
 
 
 filewalker( settings.folderName, writeFilewalkerResultFile);
+filewalker( settings.folderName, readFiles);
 
 
 
