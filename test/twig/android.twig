@@ -1,0 +1,332 @@
+{% extends template.outside_full_width %}
+
+{% block meta_description %}
+        <meta name="description" content="Подключайтесь к конференциям {{ settings.vendor_name }} c Android. Участвуйте в масштабных конференциях с мобильных устройств, делитесь контентом и файлами в личных и групповых чатах." />
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ settings.server_url }}{{ fileWithVersion('/css/version-material/download-client-apps.css') }}">
+    <link rel="stylesheet" type="text/css" href="/css/slick/slick.css" />
+{% endblock %}
+
+{% block h1 %}
+    Видеоконференции на Android
+{% endblock %}
+
+{% block title %}
+    <title>Приложение для видеоконференций для Android</title>
+{% endblock %}
+
+{% block cont %}
+<div class="product-new-wrapper android-wrapper">
+    <div class="download-list__wrapper">
+        <ul class="download-list">
+            <li class="download-list__item">
+                <a href="{{ site.link(517) }}">
+                    <div class="system-container">
+                        <img src="/images/nonprofits/table/download-windows-v1.svg" alt="Windows">
+                        <span>Windows</span>
+                    </div>
+                </a>
+            </li>
+            <li class="download-list__item">
+                <a href="{{ site.link(516) }}">
+                    <div class="system-container">
+                        <img src="/images/nonprofits/table/download-macos-v1.svg" height="85px" alt="macOS">
+                        <span>macOS</span>
+                    </div>
+                </a>
+            </li>
+            <li class="download-list__item">
+                <a href="{{ site.link(525) }}">
+                    <div class="system-container">
+                        <img src="/images/nonprofits/table/download-linux-v1.svg" alt="Linux">
+                        <span>Linux</span> 
+                    </div>
+                </a>
+            </li>
+            <li class="download-list__item">
+                <a href="{{ site.link(486) }}">
+                    <div class="system-container">
+                        <img src="/images/nonprofits/table/download-ios-v1.svg" alt="iOS">
+                        <span>iOS</span>
+                    </div>
+                </a>
+            </li>
+            <li class="download-list__item selected-version">
+                <a href="{{ site.link(485) }}">
+                    <div class="system-container">
+                        <img src="/images/nonprofits/table/download-android-v1.svg" alt="Android">
+                        <span>Android</span> 
+                    </div>
+                </a>
+            </li>
+            <li class="download-list__item">
+                <a href="{{ site.link(488) }}">
+                    <div class="system-container">
+                        <img src="/images/nonprofits/table/download-android-tv-v1.svg" alt="Android TV">
+                        <span>Android TV</span> 
+                    </div>
+                </a>
+            </li>
+            <li class="download-list__item">
+                <a href="{{ site.link(489) }}">
+                    <div class="system-container">
+                        <img src="/images/nonprofits/table/download-rtc-v1.svg" alt="WebRTC">
+                        <span>{{ site._("Browsers") }}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="v3-container">
+        <div class="header-info__wrapper smartphone-header">
+            <h1 class="title title--white ">Приложение для видеосвязи на Android</h1>
+            <p class="white-text header-info__description">Проводите видеоконференции вне офиса! {{ settings.vendor_name }} дает нужные инструменты, чтобы оставаться на связи из любой точки мира, будь вы на работе, дома или в пути. Участвуйте в конференциях и решайте рабочие задачи с мобильным приложением {{ settings.vendor_name }} для Android!</p>
+            <div class="prod-btn__container download-buttons">
+                <div class="download-buttons__smartphones">
+                    <a href="https://play.google.com/store/apps/details?id=com.trueconf.videochat" rel="nofollow" target="blank" class="dwn_android">
+                        <img src="/images/version-material/google-play-badge_ru.svg" alt="Google Play">
+                    </a>
+                    <a class="download-underline-link" id="apk-link" href="#apk-download">Скачать APK-файл</a>
+                    <a class="download-underline-link" href="#additional">Дополнительные материалы</a>
+                </div>
+                <div class="qr-container">
+                    <img class="qr-image" src="/images/downloads/android/qr-code.png" alt="qr" title="Отсканируйте QR-код, чтобы скачать приложение">  
+                </div>    
+                <picture>
+                    <img class="monitor-img__absolute" src="/images/downloads/android/trueconf-for-android-app-ru.png" alt="{{ settings.vendor_name }} для Android">
+                </picture>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="v3-wrapper android-wrapper">
+    <div class="v3-container features-block ru">
+        <div class="features-block__left">
+            <div class="desktop-description">
+                <p class="feature-block__text">Обменивайтесь файлами и сообщениями в групповых и личных чатах.</p>
+                <p class="feature-block__text">Просматривайте статусы участников и приглашайте коллег присоединиться к беседе.</p>
+                <p class="feature-block__text">Когда вы подносите телефон к уху, режим громкой связи отключается автоматически.</p>
+            </div>
+            <div class="mobile-description">
+                <img class="features-mobile__image" src="/images/downloads/android/address-book-ru.png" alt="Адресная книга">
+                <ul class="features-mobile__list">
+                    <li class="features-mobile__item">
+                        <img src="/images/downloads/android/icon/chat.svg" alt="Чат">
+                        <p class="feature-block__text">Обменивайтесь файлами и сообщениями в групповых и личных чатах.</p>
+                    </li>
+                    <li class="features-mobile__item">
+                        <img src="/images/downloads/android/icon/fab.svg" alt="Статус">
+                        <p class="feature-block__text">Просматривайте статусы участников и приглашайте коллег присоединиться к беседе.</p>
+                    </li>
+                    <li class="features-mobile__item">
+                        <img src="/images/downloads/android/icon/call.svg" alt="Звонок">
+                        <p class="feature-block__text">Когда вы подносите телефон к уху, режим громкой связи отключается автоматически.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="features-block__right">
+            <div class="desktop-description">
+            
+                <p class="feature-block__text">Демонстрируйте контент, показывайте презентации или оказывайте удаленную помощь коллегам.</p>
+                <p class="feature-block__text">Выводите конференции со смартфона на TV благодаря технологии Chromecast.</p>
+                <p class="feature-block__text">Управляйте камерой и микрофоном вашего устройства во время встречи.</p>
+
+            </div>
+            <div class="mobile-description">
+                <img class="features-mobile__image" src="/images/downloads/android/group-conference-ru.png" alt="Групповая конференция">
+                <ul class="features-mobile__list">
+                    <li class="features-mobile__item">
+                        <img src="/images/downloads/android/icon/share.svg" alt="Демонстрация контента">
+                        <p class="feature-block__text">Демонстрируйте контент, показывайте презентации или оказывайте удаленную помощь коллегам.</p>
+                    </li>
+                    <li class="features-mobile__item">
+                        <img src="/images/downloads/android/icon/miracast.svg" alt="Chromecast">
+                        <p class="feature-block__text">Выводите конференции со смартфона на TV благодаря технологии Chromecast.</p>
+                    </li>
+                    <li class="features-mobile__item">
+                        <img src="/images/downloads/android/icon/cam.svg" alt="Управление камерой и микрофоном">
+                        <p class="feature-block__text">Управляйте камерой и микрофоном вашего устройства во время встречи.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="v3-wrapper v3-wrapper--skype not-border">
+    <div class="products-main v3-container">
+        <div class="products-main__description video-description__black">
+            <h2 class="products-main__header ">Лучшее приложение для видеосвязи на Android</h2>
+            <p>С приложением {{ settings.vendor_name }} для Android вы “на ходу” можете взаимодействовать с коллегами, обмениваться сообщениями, а также просматривать и демонстрировать контент в несколько кликов. </p>
+        </div>
+        <div class="products-main__video_wrapper">
+            <div class="products-main__media">
+                <img class="video-preview__image pointer lazy" style="width:100%;" data-src="/images/downloads/android/android-video-preview-ru.svg" alt="YouTube">
+                <iframe class="video-preview__iframe products-main__video hidden" width="800" height="450" data-src="https://www.youtube.com/embed/nI-IXWSEtIo?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="products-default blue-wrapper">
+    <div class="products-default__description products-default__description--right">
+        <h3 class="products-default__header">Лучшее качество видео и энергосбережение</h3>
+        <p class="products-default__paragraph">{{ settings.vendor_name }} поддерживает аппаратное кодирование для экономии энергии   вашего устройства. Проводите конференции в разрешении FullHD без задержки видео и перебоев звука!</p>
+    </div>
+    <div class="products-default__media products-default__media--right">
+        <img class="lazy" data-src="/images/downloads/android/phone-with-battery.svg" width="350" alt="Энергосбережение">
+    </div>
+</div>
+
+<div class="v3-wrapper">    
+    <div class="v3-container block-download__container hidden" id="apk-download">
+        <p class="block-download__header">Скачать {{ settings.vendor_name }} {{ applications.android.last_version }} для Android:</p>
+        <ul class="block-download__list">
+            <li class="block-download__elem">
+                <p class="download-version__info">arm64_v8a, APK,<br> 27,7 МБ</p>
+                <a href="/download/trueconf_android_arm64_v8a.apk?v=202102201420" class="btn light-blue darken-1 waves-effect white_text">Скачать</a>
+            </li>
+            <li class="block-download__elem">
+                <p class="download-version__info">armeabi_v7a, APK,<br> 26,3 МБ</p>
+                <a href="/download/trueconf_android_armeabi_v7a.apk?v=202102201420" class="btn light-blue darken-1 waves-effect white_text">Скачать</a>
+            </li>
+            <li class="block-download__elem">
+                <p class="download-version__info">x86, APK,<br> 29,2 МБ</p>
+                <a href="/download/trueconf_android_x86.apk?v=202102201420" class="btn light-blue darken-1 waves-effect white_text">Скачать</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{{ blog_widget.getLastNewsByTag('android') }}
+
+<div class="bg-additional--wrapper" id="additional">
+    <div class="v3-container">
+        <p class="additional__header -fs21">Дополнительные материалы</p>
+        <div class="nh">
+            <ul class="need_help">
+                <li><a class="additional__link" href="{{ site.link(351) }}#trueconf-mobile">Системные требования</a></li>
+                <li><a class="additional__link" target="_blank" href="{{ settings.blog_url }}/baza-znaniy/kak-sovershit-videozvonok-s-android.html">Как совершить видеозвонок с Android</a></li>
+                <li><a class="additional__link" target="_blank" href="{{ settings.blog_url }}/baza-znaniy/gruppovaya-konferentsiya-na-android.html">Групповая видеоконференция на Android</a></li>
+                <li><a class="additional__link" target="_blank" href="{{ settings.blog_url }}/baza-znaniy/gruppovaya-konferentsiya-na-android.html#i-3">Селекторное совещание на Android-устройствах</a></li>
+                <li><a class="additional__link" target="_blank" href="{{ settings.blog_url }}/baza-znaniy/upravlenie-adresnoj-knigoj-v-klientskih-prilozheniyah-trueconf.html#add-user-tca">Добавление нового абонента в список контактов на Android</a></li>
+                <li><a class="additional__link" target="_blank" href="{{ settings.blog_url }}/baza-znaniy/slideshow_ios_android.html">Показ контента в мобильных приложениях {{ settings.vendor_name }} для Android</a></li>
+                <li><a class="additional__link" target="_blank" href="{{ settings.blog_url }}/baza-znaniy/kak-podklyuchitsya-k-beta-versii-trueconf-dlya-android.html">Как стать бета-тестером {{ settings.vendor_name }} для Android</a></li>
+                <li><a class="additional__link nobg" href="{{ settings.product_docs_url }}/client-android/installation/" target="_blank">Руководство пользователя</a> | <a class="additional__link nobg" href="{{ settings.product_docs_url }}/manual/client/trueconf-client-android-ru.pdf" target="_blank">Скачать</a> (1,4 МБ, PDF)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "BusinessApplication",
+      "name": "Приложение для видеосвязи на Android",
+      "description": "Бесплатные групповые видеоконференции TrueConf для Android. Звонки, конференции, чат, совместная работа", 
+      "operatingSystem": "Android 4.1 and up", 
+      "image": "https://trueconf.ru/images/downloads/android/trueconf-for-android-app-ru.png",    
+      "url": "https://trueconf.ru/downloads/android.html",
+      "downloadUrl": "https://trueconf.ru/downloads/android.html", 
+      "isAccessibleForFree" : "true"   
+    }
+</script>
+<script>
+    var imagePreview = document.querySelector(".video-preview__image");
+    var imagePreviewIframe = document.querySelector(".video-preview__iframe");
+    var iframeDataSrc = imagePreviewIframe.getAttribute("data-src");
+    var apkLink = document.querySelector("#apk-link");
+    var apkBlock = document.querySelector(".block-download__container");
+    
+    apkLink.addEventListener('click', function(){
+        apkBlock.classList.remove("hidden");
+    });
+
+    imagePreview.addEventListener('click',function(){
+        imagePreview.classList.add('hidden');
+        imagePreviewIframe.setAttribute("src", iframeDataSrc);
+        imagePreviewIframe.classList.remove("hidden");
+    });
+</script>
+<script type="text/javascript" src="/js/slick/slick.min.js"></script>
+<script type="text/javascript">
+if($( window ).width()<940){
+    $('.download-list__item').each(function(index){
+        $(this).hasClass('selected-version') ? firstSlide = index : "";
+    });
+    $('.download-list').slick({
+        centerMode: true,
+        infinite: true,
+        lazyLoad: 'ondemand',
+        arrows: false,
+        slidesToShow: 5,
+        slidesToScroll: 2,
+        initialSlide: firstSlide,
+        responsive: [{
+            breakpoint: 520,
+            settings: {
+            centerMode: true,
+            slidesToShow: 3
+            }
+        }]
+    });
+}
+$( window ).resize(function() {
+    if($( window ).width()<940){
+        $('.download-list__item').each(function(index){
+            $(this).hasClass('selected-version') ? firstSlide = index : "";
+        });
+        $('.download-list').slick({
+            centerMode: true,
+            infinite: true,
+            lazyLoad: 'ondemand',
+            arrows: false,
+            slidesToShow: 5,
+            slidesToScroll: 2,
+            initialSlide: firstSlide,
+            responsive: [{
+                breakpoint: 520,
+                settings: {
+                centerMode: true,
+                slidesToShow: 3
+                }
+            }]
+        });
+    }else{
+        $('.download-list').filter('.slick-initialized').slick('unslick');
+    }
+});
+
+$('.product-slider').slick({
+    autoplay: true,
+    lazyLoad: 'ondemand',
+    autoplaySpeed: 5000,
+    dots: true,
+    customPaging: function(slider, i) { 
+        return '<span class="mobile-tab"></span>';
+    },
+    infinite: true,
+    speed: 700,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    fade: true,
+    arrows: true,
+    prevArrow: '<div class="slider-arrow__container leftArrowContainer"><span class="slider-arrow windows-slider__arrow--left"></span></div>',
+    nextArrow: '<div class="slider-arrow__container rightArrowContainer"><span class="slider-arrow windows-slider__arrow--right"></span></div>',
+    cssEase: 'linear',
+    responsive: [{
+        breakpoint: 940,
+        settings: {
+            arrows: false,
+            speed: 300
+        }
+        }]
+});
+</script>
+{% endblock %}

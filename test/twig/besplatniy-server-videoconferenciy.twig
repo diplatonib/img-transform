@@ -1,0 +1,662 @@
+{% extends template.outside_full_width %}
+
+{% block meta_description %}
+    <meta name="description" content="{{ settings.server_name }} — это современный защищённый программный сервер объединённых коммуникаций и видеоконференцсвязи, созданный для корпоративных сетей." />
+{% endblock %}
+
+{% block css %}
+{{ parent() }}
+<style type="text/css">
+.name-of-client--big {
+    height: 96px;
+}
+.products-default__iframe{
+    width: 330px;
+    height: 185px;
+}
+.videosuccess__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f9fc;
+    margin: 75px 0 0;
+    padding: 100px 0;
+}
+.videosuccess-header__container{
+    border-bottom: 1px solid #cacaca;
+    margin-bottom: 20px;
+}
+.videosuccess-title{
+    font-size: 22px;
+    color: #707070;
+    font-weight: 700;
+    line-height: 30px;
+}
+.videosuccess__info{
+    max-width: 450px;
+    margin-right: 50px;
+}
+.videosuccess__iframe{
+    max-width: 450px;
+    width: 100%;
+}
+.videosuccess__iframe iframe{
+    width: 100%;
+    height: 250px;
+}
+.instruction_block{
+    margin: 80px auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.center-aligned{
+    text-align: center;
+}
+.column-flex{
+    max-width: 24%;
+    margin: 0 10px;
+}
+.instruction_block__inner{
+    display: flex;
+}
+.instruction_image-wrapper{
+    max-width: 70px;
+}
+.instruction_image{
+    width: 70px;
+}
+.instruction_text-wrapper{
+    margin-left: 1rem;
+    width: 150px;
+}
+.instruction_image-arrow-1{
+    max-width: 170px;
+    position: relative;
+    top: 40px;
+    left: 110px;
+}
+.instruction_image-arrow-2{
+    position: relative;
+    max-width: 250px;
+    max-height: 48px;
+    top: -120px;
+    left: 90px;
+}
+.instruction_image-arrow-3{
+    max-width: 170px;
+    position: relative;
+    top:-10px;
+    left: -25px;
+}
+.visible-on-mobile{
+    display: none;
+}
+.vertical-arrow{
+    position: relative;
+    left: -30px;
+}
+.visible-only-tablet{
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    .name-of-client--big {
+        height: auto;
+    }
+    .videosuccess__container{
+        flex-wrap: wrap;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .videosuccess__info{
+        margin: 0 0 30px;
+    }
+}
+@media only screen and (max-width: 1280px){
+    .instruction_block{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .column-flex{
+        width: 40%;
+        max-width: 100%;
+        margin-bottom: 50px;
+    }
+    .hidden-on-tablet{
+        display: none;
+    }
+    .instruction_text-wrapper{
+        width: 70%;
+    }
+    .instruction_image-arrow-2{
+        left: -120px;
+        transform: rotate(-5deg);
+        width: 150px;
+    }
+    .visible-only-tablet{
+        display: block;
+        top: -110px;
+    }
+}
+@media only screen and (max-width: 800px){
+    .instruction_block{
+        display: block;
+    }
+    .instruction_block__inner{
+        width: 100%;
+    }
+    .hidden-on-desktop{
+        display: none;
+    }
+    .column-flex{
+        width: 80%;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    .visible-on-mobile{
+        display: block;
+    }
+    .visible-only-tablet{
+        display: none;
+    }
+}
+</style>
+{% endblock %}
+
+{% block additional_js %}
+    <script src="/public/js/trueconf/jquery-ui-1.11.4.accordion.custom.min.js" defer></script>
+{% endblock %}
+
+{% block cont %}
+    <div class="v3-wrapper linux-beta_block">
+        <p class="c linux-beta__text" >
+            <span>
+                <img src="/images/version-material/pinguine.svg" />
+            </span>
+            Доступна бета-версия TrueConf Server для Linux!
+            <a href="{{ site.link(1902) }}" target="_blank">Присоединиться к бета-тестированию→</a>
+        </p>
+    </div>
+    <div class="v3-wrapper v3-wrapper--server">
+        <div class="first v3-container">
+            {% block h1 %}
+                <div class="title-wrapper">
+                    <h1 class="first__header">
+                        {{ settings.server_name_free }}: бесплатный сервер видеоконференций
+                    </h1>
+                </div>
+            {% endblock %}
+            <div class="first__content">
+                <div class="first__slides">
+                    <img class="first__image" src="/images/tcsf/ru/tc720-ru.png" alt="Бесплатный сервер видеоконференций" title="Бесплатный сервер видеоконференций">
+                </div>
+                <div class="first__features">
+                    <ul class="first__list">
+                        <li class="first__list_item">
+                            4К видеоконференции и технология масштабируемого видеокодирования (SVC)
+                        </li>
+                        <li class="first__list_item">
+                            100% программное отечественное решение
+                        </li>
+                        <li class="first__list_item">
+                            Клиентские приложения для любых платформ
+                        </li>
+                        <li class="first__list_item">
+                            Защищенная связь внутри вашей сети
+                        </li>
+                        <li class="first__list_item">
+                            Бесплатный сервер видеосвязи на {{ settings.license_default.online_users }} абонентов
+                        </li>
+                        <li class="first__list_item first__list_item--no-marker">
+                            <a href="{{ site.link(201) }}">
+                                <span>
+                                    Возможности полной версии
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% if(visitor_os != 'win' and visitor_os != 'linux') %}
+                <div class="notification">
+                    <span class="notification__message">
+                        {{ settings.server_name }} предназначен для установки на отличную от вашей операционную систему
+                    </span>
+                </div>
+            {% endif %}
+            <div class="download-buttons">
+                <div class="download-buttons__btn">
+                    <a class="btn-large green darken-1 waves-effect white_text btn_win_app span dwn_server intro__btn" href="{{ site.link(406) }}">
+                        <span>
+                            Скачать бесплатно
+                        </span>
+                    </a>
+                    <p class="first__version">
+                        Версия {{ applications.server.last_version }} ({{ applications.server.size_for_print }})
+                    </p>
+                    <div class="first__changelog">
+                        <a href="{{ site.link(529) }}">
+                            История изменений
+                        </a>
+                    </div>
+                </div>
+                <div class="download-buttons__btn">
+                    <a class="btn-large light-blue darken-1 waves-effect white_text btn_chat span open_chat intro__btn"
+                       href="javascript:void($zopim.livechat.say('Здравствуйте, меня заинтересовало решение {{ settings.server_name_free }}.'))">
+                        <span>
+                            Заявка на демонстрацию
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="videosuccess__container nobg">
+        <div class="videosuccess__info">
+            <div class="videosuccess-header__container">
+                <p class="videosuccess-title">
+                    Решение #1 для удаленной работы
+                </p> 
+            </div>
+            <p class="products-default__paragraph">
+                В период самоизоляции {{ settings.vendor_name }} обеспечил видеосвязью более 3 миллионов работающих россиян. Решения {{ settings.vendor_name }} ежедневно используются для организации удаленной работы, дистанционного обучения и телемедицины, проведения государственных совещаний, трансляции виртуальных мероприятий и концертов.
+            </p>
+        </div>
+        <div class="videosuccess__iframe">
+            <iframe src="https://www.youtube.com/embed/wvybJat4c1I" frameborder="0" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+    
+    <div class="products-default v3-container">
+        <div class="products-default__media products-default__media--right">
+            <a href="/images/products/trueconf-server-free.svg" class="colorbox-separate link--block cboxElement" rel="colorbox-separate">
+                <img class="products-default__image lazy" data-src="/images/products/trueconf-server-free.svg" alt="Схема работы {{ settings.server_name_free }}">
+            </a>
+        </div>
+        <div class="products-default__description products-default__description--right">
+            <h2 class="products-default__header">Лучшая система видеосвязи в России</h2>
+            <p class="products-default__paragraph">
+                Видеосвязь {{ settings.vendor_name }} объединяет миллионы рабочих мест и переговорных комнат по всему миру. <a href="{{site.link(201)}}" class="nobg">{{ settings.server_name }}</a> специально разработан для работы внутри вашей корпоративной сети, а внедрение займет не более <a href="{{ settings.blog_url }}/baza-znaniy/install-lan-videoconferencing-system.html" target="_blank" class="nobg">15 минут</a>!
+            </p>
+            <a class="v3-link" href="{{ site.link(201) }}">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="instruction-wrapper v3-container">
+        <h2 class="products-default__header center-aligned">C чего начать</h2>
+        <div class="instruction_block">
+            <div class="column-flex">
+                <div class="instruction_block__inner">
+                    <div class="instruction_image-wrapper">
+                        <img class="instruction_image" src="/images/landing/free-server/1-circle.png"/>
+                        <img class="instruction_image-arrow-1 hidden-on-tablet" src="/images/landing/free-server/arrow-from-top-to-right.png"/>
+                        <img width="25px" class="visible-on-mobile vertical-arrow" src="/images/landing/free-server/arrow-from-top-to-bottom.png"/>
+                    </div>
+                    <div class="instruction_text-wrapper">
+                        <p class="products-default__paragraph">Скачайте, установите и зарегистрируйте {{ settings.server_name }}.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column-flex">
+                <div class="instruction_block__inner">
+                    <div class="instruction_image-wrapper">
+                        <img class="instruction_image" src="/images/landing/free-server/2-circle.png"/>
+                        <img class="instruction_image-arrow-2 hidden-on-desktop" src="/images/landing/free-server/arrow-from-bottom-down.png"/>
+                        <img width="25px" class="visible-on-mobile vertical-arrow" src="/images/landing/free-server/arrow-from-top-to-bottom.png"/>
+                    </div>
+                    <div class="instruction_text-wrapper">
+                        <p class="products-default__paragraph">Создайте аккаунты для сотрудников в разделе «Учетные записи пользователей».</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column-flex">
+                <div class="instruction_block__inner">
+                    <div class="instruction_image-wrapper">
+                        <img class="instruction_image" src="/images/landing/free-server/3-circle.png"/>
+                        <img width="25px" class="visible-on-mobile vertical-arrow" src="/images/landing/free-server/arrow-from-top-to-bottom.png"/>
+                    </div>
+                    <div class="instruction_text-wrapper">
+                        <p class="products-default__paragraph">Отправьте сотрудникам логины, пароли и ссылку на гостевую страницу сервера для скачивания клиентских приложений.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column-flex">
+                <div class="instruction_block__inner">
+                    <div class="instruction_image-wrapper">
+                        <img class="instruction_image" src="/images/landing/free-server/4-circle.png"/>
+                        <img class="instruction_image-arrow-3 hidden-on-tablet hidden-on-desktop" src="/images/landing/free-server/arrow-from-bottom-up-alpha.png"/>
+                        <img class="instruction_image-arrow-2 visible-only-tablet" src="/images/landing/free-server/arrow-from-bottom-down.png"/>
+                    </div>
+                    <div class="instruction_text-wrapper">
+                        <p class="products-default__paragraph"> Начинайте общение!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media">
+            <img class="products-default__image lazy" data-src="/images/features/svg/tools.svg" alt="Всё включено!">
+        </div>
+        <div class="products-default__description">
+            <h2 class="products-default__header">Всё включено!</h2>
+            <p class="products-default__paragraph">
+                UltraHD видеоконференции. Кросс-платформенные клиентские приложения. Удобные инструменты для совместной работы. Адресная книга со статусами и фотографиями. Гибкие возможности администрирования. Всё это &ndash; бесплатно и навсегда!
+            </p>
+            <a class="v3-link" href="{{ site.link(218) }}">
+                Подробнее
+            </a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media products-default__media--right">
+            <img class="products-default__image lazy" data-src="/images/landing/svg/gartner.svg" alt="Gartner">
+        </div>
+        <div class="products-default__description products-default__description--right">
+            <h2 class="products-default__header">Лидер отрасли</h2>
+            <p class="products-default__paragraph">
+                {{ settings.vendor_name }} — единственный российский ВКС-разработчик, неоднократно отмеченный в исследованиях авторитетных аналитических агентств <a href="{{ settings.blog_url }}/press-release/trueconf-dvazhdy-v-reitingah-gartner-2019-2020.html" target="_blank">Gartner</a> и <a href="{{ settings.blog_url }}/press-release/trueconf-vkluchen-v-idc-marketscape-2020.html" target="_blank">IDC</a>.
+            </p>
+            <a class="v3-link" href="{{ settings.blog_url }}/tag/nagrady">
+                Подробнее
+            </a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media">
+            <img class="products-default__image lazy" data-src="/images/features/svg/os-cloud.svg" alt="Клиентские приложения для любой ОС">
+        </div>
+        <div class="products-default__description">
+            <h2 class="products-default__header">Будьте на связи везде: в дороге, дома, с рабочего места и из конференц-зала</h2>
+            <p class="products-default__paragraph">
+                Участвовать в видеоконференциях вы можете с любого устройства. В комплекте с сервером бесплатно поставляются клиентские приложения для Windows, Linux, macOS, Android, iOS и WebRTC. Мобильные приложения также доступны из App Store и Google&nbsp;Play.
+            </p>
+            <a class="v3-link" href="{{ site.link(517) }}">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-wrapper v3-wrapper--skype">
+        <div class="products-main v3-container">
+            <div class="products-main__description">
+                <h2 class="products-main__header">Неограниченное число раскладок</h2>
+            </div>
+            <div class="products-main__video_wrapper">
+                <div class="products-main__media">
+                    <iframe class="products-main__video product-default__iframe--big" data-loader="youtube" data-src="_0Og7guLXGE" width="800" height="450" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media products-default__media--right">
+            <img class="products-default__image lazy" data-src="/images/features/svg/webinar.svg" alt="Видеоконференции через браузер">
+        </div>
+        <div class="products-default__description products-default__description--right">
+            <h2 class="products-default__header">Мгновенный доступ к конференциям через WebRTC</h2>
+            <p class="products-default__paragraph">
+                Подключайтесь к видеоконференциям, созданным на {{ settings.server_name_free }}, по ссылке <b>через браузер</b> и становитесь её полноценными участниками с видео, чатом и возможностями для совместной работы.
+            </p>
+            <a class="v3-link" href="{{ site.link(489) }}">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media">
+            <img class="products-default__image lazy" data-src="/images/features/svg/svc.svg" alt="Видеоконференции через браузер">
+        </div>
+        <div class="products-default__description">
+            <h2 class="products-default__header">Непревзойденное качество видео и звука</h2>
+            <p class="products-default__paragraph">
+                Благодаря технологии масштабируемого видеокодирования (SVC) вы будете всегда уверены в том, что каждый из участников получает максимальное возможное качество видео и звука согласно возможностям его устройства, канала связи, разрешения экрана и типа выбранной раскладки видеоокон.
+            </p>
+            <a class="v3-link" href="{{ site.link(409) }}">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media products-default__media--right">
+            <img class="products-default__image lazy" data-src="/images/features/svg/content-sharing.svg" alt="Передача контента">
+        </div>
+        <div class="products-default__description products-default__description--right">
+            <h2 class="products-default__header">Передача контента</h2>
+            <p class="products-default__paragraph">
+                Чтобы повысить вашу эффективность, мы заложили в клиентские приложения возможность показа рабочего стола и отдельных приложений, передачи слайдов и презентаций, удаленного управления ПК, общения в чатах, вызова телефонных номеров, а также записи видеоконференций.
+            </p>
+            <a class="v3-link" href="https://docs.trueconf.com/client/tools#share-content">
+                Подробнее
+            </a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media">
+            <img class="products-default__image lazy" data-src="/images/features/svg/interoperability.svg" alt="Объединенные комуникации">
+        </div>
+        <div class="products-default__description">
+            <h2 class="products-default__header">Объединенные коммуникации? Конечно!</h2>
+            <p class="products-default__paragraph">
+                Даже к бесплатному серверу видеоконференций вы сможете подключить системы видеонаблюдения, свою АТС или существущее ВКС оборудование для полноценного участия RTSP, SIP/H.323-абонентов в ваших видеоконференциях, и в том числе для вызовов на ТфОП.
+            </p>
+            <a class="v3-link" href="{{ site.link(375) }}">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media products-default__media--right">
+            <img class="products-default__image lazy" data-src="/images/server-videokonferenciy/devises.svg" alt="Мобильные приложения">
+        </div>
+        <div class="products-default__description products-default__description--right">
+            <h2 class="products-default__header">Мобильные приложения {{ settings.vendor_name }} для Android и iOS восхищают</h2>
+            <p class="products-default__paragraph">
+                Бесплатные мобильные приложения {{ settings.vendor_name }} для смартфонов и планшетов на базе Android и iOS популярны по всему миру и имеют более одного миллиона загрузок. И это неудивительно, ведь они предлагают отличное качество связи и полноценную поддержку всех типов групповых конференций {{ settings.vendor_name }}.
+            </p>
+            <a class="v3-link" href="{{ site.link(485) }}">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media">
+            <img class="products-default__image lazy" data-src="/images/features/svg/api.svg" alt="Интеграция с сайтами и приложениями">
+        </div>
+        <div class="products-default__description">
+            <h2 class="products-default__header">Интеграция с сайтами и приложениями</h2>
+            <p class="products-default__paragraph">
+                Используйте набор инструментов TrueConf API для взаимодействия сторонних приложений и сервисов с вашей копией сервера.
+            </p>
+            <a class="v3-link" href="https://developers.trueconf.ru/#server-api">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media products-default__media--right">
+            <img class="products-default__image lazy" data-src="/images/server-videokonferenciy/license_ru.svg" alt="Гибкая система лицензирования">
+        </div>
+        <div class="products-default__description products-default__description--right">
+            <h2 class="products-default__header">Гибкая система лицензирования</h2>
+            <p class="products-default__paragraph">
+                Если вы выросли из {{ settings.server_name_free }}, не беда! Вы можете в любой момент перейти на <a href="{{site.link(201)}}">полную версию</a> {{ settings.server_name }}, все ваши данные останутся на месте, переустановка не потребуется, и займёт это всего 5 минут времени живого общения с нашим специалистом.
+            </p>
+            <a class="v3-link" href="{{ site.link(602) }}">Подробнее</a>
+        </div>
+    </div>
+
+    <div class="v3-line v3-container"></div>
+
+    <div class="products-default v3-container">
+        <div class="products-default__media">
+            <iframe class="product-default__iframe" data-loader="youtube" width="448" height="252" data-src="wK-NZ7P5Roc" frameborder="0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="products-default__description">
+            <h2 class="products-default__header">Планировщик конференций для всех пользователей</h2>
+            <p class="products-default__paragraph">
+                C {{ settings.vendor_name }} вы можете самостоятельно создавать конференции на лету или планировать мероприятия заранее. Добавляйте участников, размещайте видеоокна в удобном порядке, записывайте видеоконференции, отслеживайте мероприятия через личный календарь или отправляйте письма-приглашения со всей необходимой информацией – в планировщике доступен широкий выбор функций для решения различных бизнес-задач.
+            </p>
+            <a class="v3-link" href="{{ settings.blog_url }}/baza-znaniy/kak-zaplanirovat-konferentsiyu-v-trueconf-dlya-windows.html">
+                Подробнее
+            </a>
+        </div>
+    </div>
+
+    <div class="v3-wrapper">
+        <div class="products-main v3-container">
+            <div class="products-main__description">
+                <h2 class="products-main__header">FAQ</h2>
+            </div>
+            <div class="products-main__video_wrapper" >
+                <div id="knowledge-base">
+                    <p class="products-small__header">
+                        Является ли {{ settings.server_name_free }} полностью бесплатным, даже для коммерческого использования?
+                    </p>
+                    <div>
+                        <p class="products-default__paragraph margin--not">
+                            Да.
+                        </p>
+                    </div>
+                    <p class="products-small__header">
+                        Какой срок действия бесплатной версии {{ settings.server_name_free }}?
+                    </p>
+                    <div>
+                        <p class="products-default__paragraph margin--not">
+                            Срок действия бесплатной версии не ограничен. Единственное условие - ежегодное продление лицензии через <a href="{{ site.link(601) }}">сайт</a>. Читайте о том, как продлить лицензию, в <a target="_blank" href="{{settings.blog_url}}/baza-znaniy/kak-prodlit-trueconf-server-free.html">нашем блоге</a>.
+                        </p>
+                    </div>
+                    <p class="products-small__header">
+                        Можно ли подключить стороннюю ВКС систему или корпоративную ATC?
+                    </p>
+                    <div>
+                        <p class="products-default__paragraph margin--not">
+                            Да. {{ settings.server_name }} поддерживает подключение АТС и MCU по протоколам SIP и H.323. Вы можете приглашать в конференцию терминалы ВКС сторонних производителей, которые работают по SIP/H.323 протоколам. Кроме того, всем пользователям доступна интеграция с системами видеонаблюдения по протоколу RTSP. В бесплатной версии доступно 1 RTSP/SIP/H.323-подключение.
+                        </p>
+                    </div>
+                    <p class="products-small__header">
+                        Сколько пользователей можно добавить на сервер?
+                    </p>
+                    <div>
+                        <p class="products-default__paragraph margin--not">
+                            Максимальное число добавленных пользователей на одном сервере - {{ settings.license_default.online_users }}.
+                        </p>
+                    </div>
+                    <p class="products-small__header">
+                        Есть ли поддержка WebRTC?
+                    </p>
+                    <div>
+                        <p class="products-default__paragraph margin--not">
+                            Да. Подключиться через WebRTC могут пользователи, которые зарегистрированы на сервере.
+                        </p>
+                    </div>
+                    <p class="products-small__header">
+                        Можно ли зарегистрировать сервер {{ settings.server_name_free }} без подключения к интернету?
+                    </p>
+                    <div>
+                        <p class="products-default__paragraph margin--not">
+                            Нет. Данная возможность доступна только пользователям полной версии продукта {{ settings.server_name }}. Если вам нужна пробная версия {{ settings.server_name }}, которая работает без подключения к интернету - обратитесь в отдел продаж по телефону <strong>+7 (495) 698-60-66</strong> или почте <strong>sales@trueconf.ru</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="download-buttons download-buttons--center padding-bot padding-top">
+        <div class="download-buttons__btn margin-right">
+            <a class="btn-large green darken-1 waves-effect white_text btn_win_app span dwn_server intro__btn" href="{{ site.link(406) }}">
+                <span>Скачать бесплатно</span>
+            </a>
+            <p class="first__version">
+                Версия {{ applications.server.last_version }} ({{ applications.server.size_for_print }})
+            </p>
+        </div>
+        <a class="v3-link nobg padding-bot-not open_chat" href="javascript:void($zopim.livechat.say('Здравствуйте, меня заинтересовало решение {{ settings.server_name_free }}.'))">
+            Связаться с менеджером
+        </a>
+    </div>
+
+    <div class="v3-wrapper padding-bot padding-top">
+        <div class="products-main v3-container">
+            <h2 class="products-main__header" id="terms-of-use">Условия использования</h2>
+            <ol class="s-list">
+                <li class="s-list__item">
+                    Срок действия – не ограничен. Единственное условие - ежегодное  продление лицензии.
+                </li>
+                <li class="s-list__item">
+                    Максимальное количество зарегистрированных  пользователей данной версии – {{ settings.license_default.online_users }} (включая абонентов SIP/H.323/RTSP).
+                </li>
+                <li class="s-list__item">
+                    Бесплатный сервер видеоконференций требует подключения к регистрационному серверу по порту 4310.
+                </li>
+                <li class="s-list__item">
+                    Участие в групповых конференциях с максимальным числом абонентов в размере {{ settings.license_default.online_users }} человек.
+                </li>
+                <li class="s-list__item">
+                    Максимальное количество активных групповых конференций на сервере - {{ settings.license_default.conferences }}.
+                </li>
+                <li class="s-list__item">
+                    Звонки на <a href="{{site.link(512)}}">IP-камеры</a>, <a href="{{site.link(468)}}">SIP АТС и H.323-терминалы</a> - доступно. Максимальное количество RTSP/SIP/H.323 подключений - {{ settings.license_default.gateways }}.
+                </li>
+                <li class="s-list__item">
+                    Для получения технической поддержки воспользуйтесь <a target="_blank" href="{{ site.link(237) }}">формой для отправки запросов</a>.
+                </li>
+                <li class="s-list__item">
+                    Доступные режимы видеоконференцсвязи: <a href="{{site.link(552)}}">видеозвонок</a>, <a href="{{site.link(255)}}">групповая видеоконференция</a> (все видят и слышат друг друга), <a href="{{site.link(287)}}">видеоурок</a> (все видят ведущего, ведущий видит всех),  <a href="{{site.link(256)}}">ролевая видеоконференция</a> с числом участников до {{ settings.license_default.online_users }}.
+                </li>
+                <li class="s-list__item">
+                    Доступные инструменты для совместной работы: <a href={{ site.link(263) }}>запись видеоконференции</a>,  <a href="{{ site.link(282) }}">чат</a>, <a href="{{site.link(259)}}">показ презентаций</a>, <a href="{{site.link(261)}}">демонстрация экрана</a>, <a href={{ site.link(258) }}>удаленное управление рабочим столом</a>.
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    {{ blog_widget.getLastNewsByTag('trueconf-server') }}
+
+    <script>
+        $(document).ready(function() {
+            $("#knowledge-base").accordion({collapsible: true, active: false, heightStyle: "content"});
+        });
+    </script>
+
+    <div itemscope itemtype="http://schema.org/SoftwareApplication">
+        <meta itemprop="name" content="{{ settings.server_name_free }}"/>
+        <meta itemprop="description" content="Лучшая система ВКС в России! {{ settings.server_name }} используют 1500 организаций по всему миру в своих корпоративных сетях."/>
+        <meta itemprop="applicationCategory" content="Связь"/>
+        <meta itemprop="applicationSubCategory" content="Видеоконференцсвязь"/>
+        <meta itemprop="softwareVersion" content="{{ applications.server.last_version }}"/>
+        <meta itemprop="operatingSystem" content="Windows Server"/>
+        <meta itemprop="fileSize" content="115MB"/>
+        <meta itemprop="screenshot" content="http://trueconf.ru/images/index/slides/server-mlt.jpg"/>
+
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <meta itemprop="price" content="0"/>
+        </div>
+    </div>
+
+{% endblock %}

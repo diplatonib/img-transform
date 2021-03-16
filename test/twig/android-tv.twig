@@ -1,0 +1,341 @@
+{% extends template.clients_applications %}
+
+{% block meta_description %}
+    <meta name="description" content="Как совершить видеозвонок через телевизор? Приложение {{ settings.vendor_name }} для проведения видеоконференций через телевизор на Android TV. Поддержка 4K. Возможность отправлять сообщения." />
+{% endblock %}
+
+{% block h1 %}{% endblock %}
+{% block title %} <title>Видеозвонки на вашем телевизоре — {{ settings.vendor_name }}</title> {% endblock %}
+
+{% block css %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ settings.server_url }}{{ fileWithVersion('/css/version-material/download-client-apps.css') }}">
+<style>
+    .ca_table {
+        margin-top: 5px;
+    }
+
+    .ca_table tr td {
+        width: 180px;
+        text-align: center;
+        border: 1px #e2e7ed solid;
+        border-right: none;
+        border-left: none;
+        vertical-align: bottom;
+        padding: 0px 0px 10px 0px;
+    }
+
+    .ca_table tr td div {
+        width: 180px;
+        height: 90px;
+        display: table-cell;
+        vertical-align: bottom;
+    }
+
+    .ca_table #win div {
+        border-left: none;
+    }
+
+    .ca_table tr td div a {
+        text-decoration: none;
+        font-size: 12px;
+        color: #666666;
+    }
+    .version-material .ca_table tr td div a > div.img {
+        display: inline-block;
+        margin-bottom: 10px;
+        max-height: 45px;
+        position:relative;
+        background-attachment: scroll;
+        background-repeat: no-repeat;
+        background-image: url(/images/trueconf-mobile/icons-1.png);
+    }
+
+    .outside-index .ca_table + h1 {
+        display: inline-block;
+        padding-bottom: 0;
+        margin: 40px 0 0;
+        max-width: 480px;
+    }
+
+    .outside-index .ca_table + div {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        max-width: 480px;
+    }
+
+    .outside-index .ca_table + div h1 {
+        padding-bottom: 0;
+        margin: 40px 0 0;
+    }
+
+    .version-material .ca_table tr td div a > div.img:hover {
+        bottom:1px;
+    }
+
+    .ca_table .windows-client {
+        width: 42px;
+        height: 42px;
+        background-position: 0px 0px;
+    }
+
+    .ca_table .osx-client {
+        width: 36px;
+        height: 36px;
+        background-position: -42px 0px;
+    }
+
+    .ca_table .linux-client {
+        width: 35px;
+        height: 42px;
+        background-position: -78px 0px;
+    }
+
+    .ca_table .ios-client {
+        width: 35px;
+        height: 42px;
+        background-position: -113px 0px;
+    }
+
+    .ca_table .android-client {
+        width: 34px;
+        height: 42px;
+        background-position: -148px 0px;
+    }
+
+    .ca_table .android-tv-client {
+        width: 55px;
+        height: 43px;
+        background-position: -286px -40px;
+    }
+
+    .ca_table .webrtc-client {
+        width: 42px;
+        height: 42px;
+        background-position: -182px 0px;
+    }
+
+    .ca_table .active .windows-client {
+        background-position: 0px -42px;
+    }
+
+    .ca_table .active .osx-client {
+        background-position: -43px -42px;
+    }
+
+    .ca_table .active .linux-client {
+        width: 33px;
+        background-position: -79px -42px;
+    }
+
+    .ca_table .active .ios-client {
+        background-position: -113px -42px;
+    }
+
+    .ca_table .active .android-client {
+        width: 37px;
+        background-position: -148px -42px;
+    }
+
+    .ca_table .active .android-tv-client {
+        width: 55px;
+        background-position: -229px -42px;
+    }
+
+    .ca_table .active .webrtc-client {
+        background-position: -185px -42px;
+    }
+
+    .ca_table tr .active {
+        background-color: #0097a7;
+    }
+
+    .ca_table tr td.active div a {
+        color: #ffffff;
+        text-decoration: none !important;
+    }
+
+    .flex-center {
+        display: flex; 
+        justify-content: center;
+    }
+
+    tr td.left-aligned{
+        text-align: left;
+    }
+
+    @media all and (max-width: 600px), (-webkit-min-device-pixel-ratio: 1.2) and (max-width: 600px){
+        .ca_table tr th {
+            display: none;
+        }
+    }
+
+    @media all and (max-width: 600px), (-webkit-min-device-pixel-ratio: 1.2) and (max-width: 600px){
+        .ca_table {
+            width: 100%;
+        }
+        .ca_table tr td {
+            display: inline-block;
+            float: left;
+            width: 50%;
+        }
+        .ca_table tr td div {
+            width: 10%;
+            border-left:none;
+        }
+        .ca_table tr .active {
+            border-bottom: 1px solid #1A8FD2;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block cont %}
+    <div>
+        <h1>{{ settings.vendor_name }} для видеозвонков через телевизоры</h1>
+    </div>
+    <div id="android-ru" class='download'>
+        <div>
+            <a href="{{ applications.android.setup_url }}" rel='nofollow' target='blank' class="dwn_android"><img style="height:40px; width:135px;" src="/images/version-material/google-play-badge_ru.svg" alt="Google Play"></a>
+        </div>
+        <div>
+            <img class="qr" src="/images/downloads/qr-code-android.png" alt="QR код">
+        </div>
+    </div>
+    <div class='fr slides' style="width:446px;">
+        <p style="margin-bottom: 20px; text-align: center;"><a class="download-apk" href="#download">Скачать приложение</a></p>
+        <a href="/images/android-tv/seminar.png" class="colorbox-separate right" rel="colorbox-separate">
+            <img src="/images/android-tv/seminar.png" width="430" alt="Видеозвонки с телевизора приложение {{ settings.vendor_name }} &mdash; групповая конференция" />
+        </a>
+        <div>
+            <a href="/images/android-tv/adress-book.png" class="colorbox-separate" rel="colorbox-separate" style="margin-left:16px; margin-top:10px; display:inline-block;">
+                <img src="/images/android-tv/adress-book.png" width="210" height="130" alt="Видеозвонки с телевизора приложение {{ settings.vendor_name }} &mdash; адресная группа">
+            </a>
+            <a href="/images/android-tv/profile.png" class="colorbox-separate" rel="colorbox-separate" style="margin-left:10px; display:inline-block;">
+                <img src="/images/android-tv/profile.png" width="210" height="130" alt="Видеозвонки с телевизора приложение {{ settings.vendor_name }} &mdash; профиль">
+            </a>
+        </div>
+    </div>
+    <div class="mobile-apps">
+        <ul class='tick'>
+            <li>Бюджетное решение для переговорных комнат на базе Android.</li>
+            <li>Встроенная поддержка 4K видеозвонков.</li>
+            <li>Полноценное управление конференциями.</li>
+            <li>Возможность отправлять сообщения.</li>
+            <li>Простое управление с помощью пульта.</li>
+            <li>Возможность авторизации через популярные социальные сети (Vkontakte, Facebook, Google+).</li>
+            <li>Поддержка периферийного оборудования.</li>
+        </ul>
+    </div>
+    <div class="instrument-support clear" style="padding-top:20px;">
+        <h2>Видеозвонки через телевизор</h2>
+        <p>Пользователям TrueConf для Android TV доступны все привычные функции и возможности клиентского приложения TrueConf для Android. Мы адаптировали интерфейс под удобное управление стрелками вверх, вниз, вправо и влево, и, конечно же, не забыли о кнопке ОК.</p>
+        <div class="flex-center">
+            <ul class="first__list">
+                <li class="first__list_item"><a href='{{ settings['blog_url'] }}/wiki/adresnaya-kniga' target='_blank'>Адресная книга и статусы</a></li>
+                <li class="first__list_item"><a href='https://docs.trueconf.com/client/tools#chat' target='_blank'>Обмен текстовыми сообщениями</a></li>
+                <li class="first__list_item"><a href='{{site.link(259)}}'>Показ презентаций</a></li>
+            </ul>
+        </div>    
+        </table>
+        <div class="products-main__video_wrapper">
+            <div class="products-main__media">
+                <img class="video-preview__image pointer lazy" 
+                     style="width:100%;" 
+                     data-src="/images/downloads/android/android-video-preview-ru.svg" 
+                     alt="YouTube">
+                <iframe class="video-preview__iframe products-main__video hidden" 
+                        width="800" 
+                        height="450" 
+                        data-src="https://www.youtube.com/embed/nI-IXWSEtIo?autoplay=1" 
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+        <p class="h4" style="margin-top: 20px;">Спецификация {{ vendor_name }} для умных ТВ</p>
+        <table class="req">
+            <tr>
+                <td class="left-aligned"  style="width: 157px;">Медиа плеер</td>
+                <td class="left-aligned">NVIDIA<sup>®</sup> SHIELD TV<br>
+                NVIDIA<sup>®</sup> SHIELD TV 2019<br>
+                NVIDIA<sup>®</sup> SHIELD TV PRO 2019<br>
+                Xiaomi Mi Box 4 <br>
+                Xiaomi Mi Box S</td>
+            </tr>
+                <td class="left-aligned">Камеры</td>
+                <td class="left-aligned">Logitech C920, C922, C930, PTZ Pro 2.</td>
+            </tr>
+            <tr>
+                <td class="left-aligned">Захват звука</td>
+                <td class="left-aligned">Со встроенного микрофона USB веб-камеры или любого USB спикерфона.</td>
+            </tr>
+            <tr>
+                <td class="left-aligned">Воспроизведение звука</td>
+                <td class="left-aligned">Через HDMI и динамики телевизора.</td>
+            </tr>
+            <tr>
+                <td class="left-aligned">Как скачать?</td>
+                <td class="left-aligned">Скачать с <a href="https://play.google.com/store/apps/details?id=com.trueconf.videochat&hl=ru" target="_blank" rel="nofollow">Google Play</a>.</td>
+            </tr>
+        </table>
+        <h2 id="download">Скачать приложение для видеозвонков через телевизор {{ vendor_name }}:</h2>
+        <p style="margin: 0;">
+            <a href="/download/trueconf_android_arm64_v8a.apk?v=202102201420">Скачать</a> (arm64_v8a, APK, 27,7 МБ)
+        </p>
+        <br>
+        <p style="margin: 0;">
+            <a href="/download/trueconf_android_armeabi_v7a.apk?v=202102201420">Скачать</a> (armeabi_v7a, APK, 26,3 МБ)
+        </p>
+        <br>
+        <p style="margin: 0;">
+            <a href="/download/trueconf_android_x86.apk?v=202102201420">Скачать</a> (x86, APK, 29,2 МБ)
+        </p>
+    </div>
+
+    <br class="clear" />
+    <script type="text/javascript">
+        $(function () {
+            $('.ca_table').removeClass('active');
+            $('#android-tv').addClass('active');
+        });
+    </script>
+    <style>
+        .download-apk {
+            color: gray;
+            text-decoration: none!important;
+            border-bottom: 1px dashed gray;
+        }
+        .download-apk:hover{border-bottom: none;}
+        #android-ru{margin-left: 0;}
+        @media (max-width: 470px){
+            #android-ru{width: 100%!important}
+            .slides {width: 100%!important;}
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "BusinessApplication",
+      "name": "TrueConf для Android TV",
+      "description": "Бесплатные групповые видеоконференции TrueConf для Android TV",
+      "operatingSystem": "ANDROID 4.1 and up", 
+      "image": "https://trueconf.ru/images/android-tv/seminar.png",   
+      "url": "https://trueconf.ru/downloads/android-tv.html",
+      "downloadUrl": "https://trueconf.ru/downloads/android-tv.html",
+      "isAccessibleForFree" : "true"   
+    }
+</script>
+<script>
+    var imagePreview = document.querySelector(".video-preview__image");
+    var imagePreviewIframe = document.querySelector(".video-preview__iframe");
+    var iframeDataSrc = imagePreviewIframe.getAttribute("data-src");
+
+    imagePreview.addEventListener('click',function(){
+        imagePreview.classList.add('hidden');
+        imagePreviewIframe.setAttribute("src", iframeDataSrc);
+        imagePreviewIframe.classList.remove("hidden");
+    });
+</script>
+{% endblock %}
